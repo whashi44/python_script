@@ -1,31 +1,60 @@
 #standard library
 import os
 import os.path as osp
+import sys
 import re
 import time
+from importlib import import_module
+from pprint import pprint
 #packages
-from tqdm import tqdm
-try:
-    from ovito.io import import_file
 
-except ImportError:
-    from pip._internal import main as pip
-    print("I need to install ovito to your local user folder")
-    pip(['install','--user','ovito'])
-try:
-    import natsort as nt
-except ImportError:
-    from pip._internal import main as pip
-    print("I need to install natsort to your local user folder")
-    pip(['install','--user','natsort'])
-try:
-    import numpy as np
-except ImportError:
-    from pip._internal import main as pip
-    print("I need to install numpy to your local user folder")
-    pip(['install','--user','numpy'])
+named_libs = [('numpy','np'),('natsort','nt'),
+('ovito.io','oio'),('tqdm','tqdm')]
+
+for name,short in named_libs:
+    try:
+        lib = import_module(name)
+    except:
+        print(sys.exc_info())
+    else:
+        globals()[short] = lib
+
+
+
+# try:
+#     from tqdm import tqdm
+# except ImportError:
+#     from pip._internal import main as pip
+#     print("I need to install tqdm to your local user folder\n\n\n")
+#     pip(['install','--user','tqdm'])
+#
+#
+# try:
+#     from ovito.io import import_file
+#
+# except ImportError:
+#     from pip._internal import main as pip
+#     print("I need to install ovito to your local user folder")
+#     pip(['install','--user','ovito'])
+# try:
+#     import natsort as nt
+# except ImportError:
+#     from pip._internal import main as pip
+#     print("I need to install natsort to your local user folder")
+#     pip(['install','--user','natsort'])
+# try:
+#     import numpy as np
+# except ImportError:
+#     from pip._internal import main as pip
+#     print("I need to install numpy to your local user folder")
+#     pip(['install','--user','numpy'])
 
 # ----------Scan and Store file ----------------
+
+# def main():
+
+
+
 t = time.time()
 # file_extension = input('Enter the desired file extension: ')
 file_extension = ".lammpstrj"
@@ -55,7 +84,7 @@ for count,file in enumerate(file_list,0):
     t = time.time()
     print("Calculating the Lindemann Index for file",file)
     #   importing the files
-    pipeline = import_file(file, sort_particles=True)
+    pipeline = oio.import_file(file, sort_particles=True)
     num_frame = pipeline.source.num_frames
     data = pipeline.compute()
     #   Initilizations
@@ -70,7 +99,7 @@ for count,file in enumerate(file_list,0):
         position[:,:,frame] = np.array(data.particles['Position'])
     difference = np.diff(position,axis = 0) #position axis = 0
     #   LI calculation
-    for k in tqdm(range(num_distance), desc = 'Calculation'):
+    for k in tqdm.tqdm(range(num_distance), desc = 'Calculation'):
         xyz = np.cumsum(difference[k:,:,:],axis=0)  #position axis = 0
         distance = np.sqrt(np.sum(xyz**2,axis = 1))  #coordinate axis = 0
         distance_average[k:,k] = np.mean(distance, axis = 1) #due to the sum function, now the time axis = 1
@@ -92,3 +121,6 @@ for count,file in enumerate(file_list,0):
 #   Useful for debugging
 # np.savetxt('test.txt',position[:,:,0])
 # np.savetxt('Lindemann.txt',LindemannIndex_cluster)
+
+# if __name__ =='__main__':
+#     main()
