@@ -14,6 +14,7 @@ import re
 import natsort as nt
 
 file_extension = ".lammpstrj"
+file_prefix = 'prod'
 all_directory = os.listdir()
 folder_list = []
 file_list = []
@@ -32,7 +33,8 @@ for folder in all_directory:
     if osp.isdir(folder):
         current_folder = os.listdir(folder)
         for file in current_folder:
-            if file.endswith(file_extension):
+            # if file.endswith(file_extension):
+            if file.startswith(file_prefix):
                 original = osp.join(os.getcwd(),folder,file)
                 target = osp.join(os.getcwd(),path)
                 shutil.copy(original,target)
