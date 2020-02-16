@@ -16,7 +16,7 @@ file_list = []
 num_list = []
 
 for file in all_directory:
-    if osp.isfile(file) and file.endswith(file_extension) and file.startswith('prod'):
+    if osp.isfile(file) and file.startswith('prod') and file.endswith(file_extension):# and file.startswith('prod'):
         file_list.append(file)
         num_list.append(re.findall(r'\d+', file)) #re for getting number from file name
 file_list = nt.natsorted(file_list)
@@ -40,6 +40,7 @@ for count,file in enumerate(file_list,0):
     delta_r = modifier.cutoff/modifier.number_of_bins
     print(f'Cutoff radius is {modifier.cutoff} \n number of bins is {modifier.number_of_bins} \n which makes it delta r as {delta_r} ')
     fig, axs = plt.subplots(nrows=2,ncols=3,constrained_layout=True)
+    fig.suptitle(f'{str(*num_list[count])}K')
     axs[0,0].plot(total_rdf[:,0],total_rdf[:,1])
     axs[0,0].set_title('Na-Na')
     axs[0,0].set_ylabel('g(r)')
