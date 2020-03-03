@@ -6,7 +6,7 @@
     2. Select the file with specific extension
     3. Read the content of teh file
     4. Extract atom coordinates
-    5. Calculate the Lindemann Index 
+    5. Calculate the Lindemann Index
 
 
 """
@@ -23,7 +23,8 @@ from pprint import pprint
 def import_library():
     named_libs = [('numpy','np'),('natsort','nt'),
     ('ovito','ov'),('tqdm','tqdm')]
-    input_flag = input("Would you like to import missing modules to your user folder? y/n: ")
+    # input_flag = input("Would you like to import missing modules to your user folder? y/n: ")
+    input_flag = 'y'
     import_flag = bool(input_flag=='y')
 
     for name,short in named_libs:
@@ -104,11 +105,12 @@ def calc_lindex():
 
         calc_time = time.time() - t
         # print("LindemannIndex for set temperature ", *num_list[count], "K is: ", LindemannIndex_cluster[count]) #* to print as space instead pf ['']
-        print("LindemannIndex for set temperature {}K is: {}".format(*num_list[count],LindemannIndex_cluster[count])) #* to print as space instead pf ['']
         with open('Lindemann.txt','a+') as write_file:
-            LI = '{}\n'.format(np.array2string(LindemannIndex_cluster[count]))
-            write_file.write(LI)
 
+            LI = '{}\n'.format(np.array2string(LindemannIndex_cluster[count]))
+            write_file.write(file+": "+LI)
+
+        print(f"LindemannIndex for set temperature file: {file} is: {LindemannIndex_cluster[count]}") #* to print as space instead pf ['']
 
 # ----------Scan and Store file ----------------
 def main():
