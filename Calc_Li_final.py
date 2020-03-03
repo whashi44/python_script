@@ -1,3 +1,16 @@
+"""
+    This function calculates the Lindemann Index based on the
+    given files
+    The flow of the function is as follows
+    1. Read the file in the directory
+    2. Select the file with specific extension
+    3. Read the content of teh file
+    4. Extract atom coordinates
+    5. Calculate the Lindemann Index 
+
+
+"""
+
 #standard library
 import os,sys,re,time
 import os.path as osp
