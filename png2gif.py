@@ -1,3 +1,11 @@
+"""
+    Quick script to convert the png files to gif file
+"""
+
+def main():
+    file_list = get_filelist()
+    file2gif(file_list)
+
 def get_filelist(file_extension='.png'):
     import os
     import os.path as osp
@@ -15,16 +23,13 @@ def get_filelist(file_extension='.png'):
 
 def file2gif(file_list):
     import imageio
-    import os
     images = []
+    gif_name = 'rdf.gif'
     for file in file_list:
+        print(f'Adding {file} to gif')
         images.append(imageio.imread(file))
-    imageio.mimsave('rdf.gif',images,duration =0.5)
-
-def main():
-    file_list = get_filelist()
-    file2gif(file_list)
-
+    imageio.mimsave(gif_name,images,duration =0.5)
+    print(f'GIF file {gif_name} has been created')
 
 #   Useful for debugging
 # np.savetxt('test.txt',position[:,:,0])
