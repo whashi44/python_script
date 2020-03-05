@@ -41,9 +41,10 @@ def import_library():
             globals()[short] = lib
 
 def get_filelist(file_extension='.lammpstrj'):
-    all_directory = os.listdir()
-    # initilization
     file_list = []
+
+    print(f'Using {file_extension} as target file extension')
+    all_directory = os.listdir()
 
     for file in all_directory:
         if osp.isfile(file) and file.endswith(file_extension):
@@ -64,16 +65,19 @@ def get_numlist(file_list):
 def calc_lindex():
     # file_extension = input('Enter the desired file extension: ')
     file_list = get_filelist()
+    print(f'Found the lists of files {file_list}')
     num_list = get_numlist(file_list)
+
     #   Initialize txt file
     with open('Lindemann.txt','w') as write_file:
         write_file.write('Lindemann Index is \n')
-    #   Initialize li value
+
+    #   Initialize lindemann index value
     LindemannIndex_cluster = np.zeros(len(file_list))
 
     for count,file in enumerate(file_list):
         t = time.time()
-        print("Calculating the Lindemann Index for file",file)
+        print(f"Calculating the Lindemann Index for file {file}")
         #   importing the files
         pipeline = ov.io.import_file(file, sort_particles=True)
         num_frame = pipeline.source.num_frames
@@ -104,14 +108,14 @@ def calc_lindex():
         LindemannIndex_cluster[count] = coefficient * np.sum(LindemannIndex_individual)
 
         calc_time = time.time() - t
-        # print("LindemannIndex for set temperature ", *num_list[count], "K is: ", LindemannIndex_cluster[count]) #* to print as space instead pf ['']
-        with open('Lindemann.txt','a+') as write_file:
 
-            LI = '{}\n'.format(np.array2string(LindemannIndex_cluster[count]))
+        with open('Lindemann.txt','a+') as write_file:
+            LI_convert =
+            output = '{}\n'.format(np.array2string(LindemannIndex_cluster[count]))
             write_file.write(file+": "+LI)
 
         print(f"LindemannIndex for set temperature file: {file} is: {LindemannIndex_cluster[count]}") #* to print as space instead pf ['']
-
+        print(f"Elapsed time is {calc_time}')
 # ----------Scan and Store file ----------------
 def main():
     import_library()
