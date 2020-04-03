@@ -110,12 +110,12 @@ def calc_lindex():
         calc_time = time.time() - t
 
         with open('Lindemann.txt','a+') as write_file:
-            LI_convert =
-            output = '{}\n'.format(np.array2string(LindemannIndex_cluster[count]))
-            write_file.write(file+": "+LI)
+            LI =np.array2string(LindemannIndex_cluster[count])
+            output = '{}\n'.format(LI)
+            write_file.write(f"{file}:{LI} \n")
 
-        print(f"LindemannIndex for set temperature file: {file} is: {LindemannIndex_cluster[count]}") #* to print as space instead pf ['']
-        print(f"Elapsed time is {calc_time}')
+        print(f"LindemannIndex for set temperature file: {file} is: {LindemannIndex_cluster[count]} \n") #* to print as space instead pf ['']
+        print(f"Elapsed time is {calc_time}")
 # ----------Scan and Store file ----------------
 def main():
     import_library()
