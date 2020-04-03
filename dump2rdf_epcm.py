@@ -86,6 +86,7 @@ for count,file in enumerate(file_list,0):
     # plt.title('O-O')
     file_no_extension = osp.splitext(file)[0]
     plt.savefig(file_no_extension)
+    plt.close()
     # plt.show()
 
     file_name = f'rdf_{str(*num_list[count])}K.txt'

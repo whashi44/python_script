@@ -27,7 +27,7 @@ for count,file in enumerate(file_list,0):
     print(f'Calculating RDF for {file}')
     pipeline = import_file(file, sort_particles=True)
     #nbins = 100, r_cutoff = 10, so delta_r = 0.1, same as VMD
-    modifier = CoordinationAnalysisModifier(cutoff = 18, number_of_bins = 1000, partial = True)
+    modifier = CoordinationAnalysisModifier(cutoff = 18, number_of_bins = 100, partial = True)
     pipeline.modifiers.append(modifier)
     total_rdf = np.zeros((modifier.number_of_bins,7)) #7 col, radius, 1-1,1-2,1-3,2-2,2-3,3-3
 
@@ -81,6 +81,7 @@ for count,file in enumerate(file_list,0):
     # plt.title('O-O')
     file_no_extension = osp.splitext(file)[0]
     plt.savefig(file_no_extension)
+    # plt.close()
     # plt.show()
 
     file_name = f'rdf_{str(*num_list[count])}K.txt'
