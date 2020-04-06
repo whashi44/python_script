@@ -1,3 +1,7 @@
 *.lammpstrj
 *.xyz
 *.idea
+*.txt
+bench/
+
+venv/
