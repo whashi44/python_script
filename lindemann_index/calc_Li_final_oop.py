@@ -19,7 +19,7 @@ import numpy as np
 import natsort as nt
 from ovito.io import import_file
 from ovito.modifiers import SelectTypeModifier
-import tqdm
+from tqdm import tqdm
 
 def main():
     Lindemann()
@@ -40,12 +40,11 @@ class Lindemann:
         # print(self.file_list)
 
     # get the list of file in the directory that meet the criteria
-    def get_filelist(self,file_extension='.lammpstrj'):
-        print(f'Using {file_extension} as target file extension')
+    def get_filelist(self,file_prefix="",file_extension='.lammpstrj'):
+        print(f'Using "{file_extension}" as target file extension')
         all_directory = os.listdir()
         for file in all_directory:
-            if osp.isfile(file) and file.endswith(file_extension):
-            # if osp.isfile(file) and file.endswith(file_extension) and file.startswith(file_prefix):
+            if osp.isfile(file) and file.endswith(file_extension) and file.startswith(file_prefix):
                 self.file_list.append(file)
         self.file_list = nt.natsorted(self.file_list)
         print(f'Found the lists of files {self.file_list}')
@@ -53,7 +52,7 @@ class Lindemann:
 
     def get_numlist(self):
         for file in self.file_list:
-                self.num_list.append(re.findall(r'\d+', file)) #re for getting number from file name
+            self.num_list.append(re.findall(r'\d+', file)) #re for getting number from file name
         self.num_list = nt.natsorted(self.num_list)
 
     def calc_lindex(self):
@@ -89,7 +88,7 @@ class Lindemann:
             difference = np.diff(position,axis = 0) #position axis = 0
 
             #   LI calculation
-            for k in tqdm.tqdm(range(num_distance), desc = 'Calculation'):
+            for k in tqdm(range(num_distance), desc = 'Calculation'):
                 xyz = np.cumsum(difference[k:,:,:],axis=0)  #position axis = 0
                 distance = np.sqrt(np.sum(xyz**2,axis = 1))  #coordinate axis = 0
                 distance_average[k:,k] = np.mean(distance, axis = 1) #due to the sum function, now the time axis = 1
