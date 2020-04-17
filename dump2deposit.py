@@ -13,7 +13,7 @@ import os.path as osp
 import re
 import natsort as nt
 
-file_extension = ".png"
+file_extension = ".lammpstrj"
 file_prefix = 'prod'
 all_directory = os.listdir()
 folder_list = []
@@ -33,7 +33,7 @@ for folder in all_directory:
     if osp.isdir(folder):
         current_folder = os.listdir(folder)
         for file in current_folder:
-            if file.endswith(file_extension):
+            if file.endswith(file_extension) and file.startswith(file_prefix):
             # if file.startswith(file_prefix):
                 original = osp.join(os.getcwd(),folder,file)
                 target = osp.join(os.getcwd(),path)
