@@ -1,0 +1,9 @@
+*.lammpstrj
+*.xyz
+*.idea
+*.txt
+*.csv
+*.png
+bench/
+venv/
+.vscode/

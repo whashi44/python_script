@@ -13,13 +13,13 @@ import os.path as osp
 import re
 import natsort as nt
 
-file_extension = ".lammpstrj"
-file_prefix = 'prod'
+file_extension = ".lammps"
+file_prefix = 'datatable'
 all_directory = os.listdir()
 folder_list = []
 file_list = []
 
-path = 'dump_deposit'
+path = 'data_deposit'
 
 try:
     os.mkdir(path)
@@ -37,6 +37,6 @@ for folder in all_directory:
             # if file.startswith(file_prefix):
                 original = osp.join(os.getcwd(),folder,file)
                 target = osp.join(os.getcwd(),path)
-                shutil.copy(original,target)
+                shutil.move(original,target)
                 print(f'Copying file {file} to {path}')
 # path = 'dump_deposit'
