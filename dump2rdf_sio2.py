@@ -28,7 +28,7 @@ for count,file in enumerate(file_list,0):
     print(f'Calculating RDF for {file}')
     pipeline = import_file(file, sort_particles=True)
     #nbins = 100, r_cutoff = 10, so delta_r = 0.1, same as VMD
-    modifier = CoordinationAnalysisModifier(cutoff = 18, number_of_bins = 1000, partial = True)
+    modifier = CoordinationAnalysisModifier(cutoff = 10, number_of_bins = 1000, partial = True)
     pipeline.modifiers.append(modifier)
     total_rdf = np.zeros((modifier.number_of_bins,4)) #3 col: radius, 1-1,1-2,2-2
 
