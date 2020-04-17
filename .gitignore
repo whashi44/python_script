@@ -2,6 +2,7 @@
 *.xyz
 *.idea
 *.txt
+*.csv
 bench/
-
 venv/
+.vscode/
