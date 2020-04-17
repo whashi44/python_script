@@ -23,6 +23,7 @@ file_list = nt.natsorted(file_list)
 num_list = nt.natsorted(num_list)
 num_file = len(file_list)
 
+
 for count,file in enumerate(file_list,0):
     print(f'Calculating RDF for {file}')
     pipeline = import_file(file, sort_particles=True)
@@ -35,6 +36,7 @@ for count,file in enumerate(file_list,0):
         data = pipeline.compute(frame)
         total_rdf += data.tables['coordination-rdf'].as_table()
     total_rdf /= pipeline.source.num_frames
+
     # print(type(total_rdf))
     # print(np.shape(total_rdf))
     delta_r = modifier.cutoff/modifier.number_of_bins
@@ -80,8 +82,9 @@ for count,file in enumerate(file_list,0):
     # plt.xlabel('g(r)')
     # plt.title('O-O')
     file_no_extension = osp.splitext(file)[0]
-    plt.savefig(file_no_extension)
-    # plt.close()
+    fig.savefig(file_no_extension)
+
+    # plt.close(fig)
     # plt.show()
 
     file_name = f'rdf_{str(*num_list[count])}K.txt'
