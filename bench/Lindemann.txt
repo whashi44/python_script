@@ -1,3 +1,3 @@
 Lindemann Index is 
-argon_bench.lammpstrj: 0.06816157
-nano3_bench.lammpstrj: 0.18601492
+argon_bench.lammpstrj:0.06816157 
+nano3_bench.lammpstrj:0.18601492 
